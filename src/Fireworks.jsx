@@ -44,6 +44,30 @@ function createBurst(x, y, particles) {
   }
 }
 
+// Puntos de un corazón (ecuación paramétrica), escalados
+function getHeartPoints(cx, cy, scale = 1) {
+  const points = []
+  const n = 100
+  for (let i = 0; i <= n; i++) {
+    const t = (i / n) * Math.PI * 2
+    const x = 16 * Math.pow(Math.sin(t), 3)
+    const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t))
+    points.push({ x: cx + x * scale, y: cy + y * scale })
+  }
+  return points
+}
+
+function createHeartBurst(cx, cy, particles) {
+  const color = COLORS[Math.floor(Math.random() * COLORS.length)]
+  const scale = 8 + Math.random() * 6
+  const points = getHeartPoints(cx, cy, scale)
+  for (const pt of points) {
+    const vx = (Math.random() - 0.5) * 2
+    const vy = (Math.random() - 0.5) * 2 - 1
+    particles.push(new Particle(pt.x, pt.y, vx, vy, color))
+  }
+}
+
 export function Fireworks() {
   const canvasRef = useRef(null)
 
@@ -54,6 +78,7 @@ export function Fireworks() {
     const ctx = canvas.getContext('2d')
     let particles = []
     let nextBurst = 0
+    let nextHeartBurst = 4000
     let rafId
 
     const resize = () => {
@@ -76,6 +101,13 @@ export function Fireworks() {
         const y = canvas.height * 0.2 + Math.random() * canvas.height * 0.5
         createBurst(x, y, particles)
         nextBurst = t + 400 + Math.random() * 600
+      }
+
+      if (t > nextHeartBurst) {
+        const cx = canvas.width * 0.25 + Math.random() * canvas.width * 0.5
+        const cy = canvas.height * 0.25 + Math.random() * canvas.height * 0.4
+        createHeartBurst(cx, cy, particles)
+        nextHeartBurst = t + 4000
       }
 
       particles = particles.filter((p) => p.update(0.08))
