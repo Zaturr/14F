@@ -48,22 +48,24 @@ function App() {
         <p className="texto-amor">Te amo mucho mi amorcito</p>
       )}
 
-      <div className="botones">
-        <button
-          type="button"
-          className={respuesta === 'si' ? 'boton boton--activo' : 'boton'}
-          onClick={handleSi}
-        >
-          Sí
-        </button>
-        <button
-          type="button"
-          className={respuesta === 'no' ? 'boton boton--activo' : 'boton'}
-          onClick={handleNo}
-        >
-          No
-        </button>
-      </div>
+      {!mostrarCita && (
+        <div className="botones">
+          <button
+            type="button"
+            className={respuesta === 'si' ? 'boton boton--activo' : 'boton'}
+            onClick={handleSi}
+          >
+            Sí
+          </button>
+          <button
+            type="button"
+            className={respuesta === 'no' ? 'boton boton--activo' : 'boton'}
+            onClick={handleNo}
+          >
+            No
+          </button>
+        </div>
+      )}
 
       {mostrarModalNo && (
         <div className="modal-overlay" onClick={cerrarModalNo}>
