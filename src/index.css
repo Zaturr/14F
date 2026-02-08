@@ -17,10 +17,44 @@ body {
 }
 
 .contenedor {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+}
+
+/* Rosas plantadas al pie de página (SVG con framer-motion) */
+.rosas-pie {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  z-index: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
+}
+
+.rosa-svg {
+  width: clamp(2.5rem, 6vw, 4rem);
+  height: auto;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.rosa-svg__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
 }
 
 .card {
@@ -33,9 +67,37 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.card h1 {
+.card h1,
+.card-titulo {
   font-size: 2rem;
   margin-bottom: 1rem;
+}
+
+.card-titulo--grande {
+  font-size: clamp(1.35rem, 4.5vw, 2rem);
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.texto-amor {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 10;
+}
+
+/* Fuegos artificiales (fondo cuando se ve la cita) */
+.fireworks-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0.5;
+  pointer-events: none;
 }
 
 .card p {
@@ -154,4 +216,23 @@ body {
   color: rgba(255, 255, 255, 0.95);
   font-weight: 600;
   padding-top: 0.25rem;
+}
+
+.modal-ventana--si {
+  max-width: 340px;
+}
+
+.modal-texto--destacado {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.modal-texto--amor {
+  font-size: 1.05rem;
+  opacity: 0.95;
+  padding-top: 0;
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 0.75rem;
 }

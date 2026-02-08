@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { RosasPie } from './Rosas'
+import { Fireworks } from './Fireworks'
 
 function App() {
   const [respuesta, setRespuesta] = useState(null) // null | 'si' | 'no'
@@ -9,30 +11,45 @@ function App() {
     setMostrarModalNo(true)
   }
 
-  const cerrarModalNo = () => {
-    setMostrarModalNo(false)
+  const handleSi = () => {
+    setRespuesta('si')
   }
+
+  const cerrarModalNo = () => setMostrarModalNo(false)
+
+  const mostrarCita = respuesta === 'si'
 
   return (
     <div className="contenedor">
+      {mostrarCita && <Fireworks />}
+      <RosasPie />
       <div className="card">
-        <div className="heart">🤍</div>
-        <h1>¡Hola mi vida!</h1>
-        <p>Me falto pedirtelo de forma bonita y si bien ya es un hecho, amorcito.</p>
-        <p>Este sabado 14 de Febrero, te gustaria que pasarlo junto a tu noviao en una posada de manera muy romantica...?.</p>
-
-        {respuesta === 'si' && (
-          <div className="contenido-si">
-            {/* Aquí irá lo que quieras mostrar cuando diga Sí */}
-          </div>
+        {mostrarCita ? (
+          <>
+            <div className="heart">🤍</div>
+            <h1 className="card-titulo card-titulo--grande">
+              Listo tenemos una cita, te recojo a la 1 en tu casa amor mío.
+            </h1>
+          </>
+        ) : (
+          <>
+            <div className="heart">🤍</div>
+            <h1 className="card-titulo">¡Hola mi vida!</h1>
+            <p>Me falto pedirtelo de forma bonita y si bien ya es un hecho, amorcito.</p>
+            <p>Este sabado 14 de Febrero, te gustaria que pasarlo junto a tu novio en una posada de manera muy romantica...?.</p>
+          </>
         )}
       </div>
+
+      {mostrarCita && (
+        <p className="texto-amor">Te amo mucho mi amorcito</p>
+      )}
 
       <div className="botones">
         <button
           type="button"
           className={respuesta === 'si' ? 'boton boton--activo' : 'boton'}
-          onClick={() => setRespuesta('si')}
+          onClick={handleSi}
         >
           Sí
         </button>
@@ -55,6 +72,7 @@ function App() {
           </div>
         </div>
       )}
+
     </div>
   )
 }
