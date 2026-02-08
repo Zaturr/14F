@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { RosasPie } from './Rosas'
 import { Fireworks } from './Fireworks'
+import { AvilaFondo } from './AvilaFondo'
 
 function App() {
   const [respuesta, setRespuesta] = useState(null) // null | 'si' | 'no'
@@ -20,9 +21,11 @@ function App() {
   const mostrarCita = respuesta === 'si'
 
   return (
-    <div className="contenedor">
-      {mostrarCita && <Fireworks />}
-      <RosasPie />
+    <>
+      {!mostrarCita && <AvilaFondo />}
+      <div className="contenedor">
+        {mostrarCita && <Fireworks />}
+        <RosasPie />
       <div className="card">
         {mostrarCita ? (
           <>
@@ -72,8 +75,8 @@ function App() {
           </div>
         </div>
       )}
-
-    </div>
+      </div>
+    </>
   )
 }
 
